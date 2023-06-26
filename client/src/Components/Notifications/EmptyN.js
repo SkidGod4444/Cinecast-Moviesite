@@ -1,4 +1,5 @@
 import { RiMovie2Line } from 'react-icons/ri'
+import moment from 'moment'
 
 
 export const Empty = ({message}) => {
@@ -10,4 +11,14 @@ export const Empty = ({message}) => {
         <p className='text-border text-sm'>{message}</p>
         </div>
     )
+}
+
+export const ShortUppercaseId = (id) => {
+    return id.slice(0, 8).toUpperCase()
+}
+
+
+
+export const DateFormater = (date) => {
+    return moment(date).format('LL')
 }

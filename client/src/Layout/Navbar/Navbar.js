@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 function Navbar() {
   const { userInfo } = useSelector((state) => state.UserLogin);
+  const { favourite } = useSelector((state) => state.UserGetFavoriteMovies);
     const hover = "hover:text-subMain transitions text-white"
     const Hover = ({isActive}) => (isActive ? 'text-subMain' : hover )
   return (
@@ -50,12 +51,12 @@ function Navbar() {
                       )}
                 
                     </NavLink>
-            <NavLink to="/favourites" className={`${Hover} relative`}>
-                <BsBox2HeartFill className="w-5 h-8"/>
-                <div className="w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white text-center absolute -top-5 -right-1">
-                    30
-                </div>
-                    </NavLink>
+                    <NavLink to="/favourites" className={`${Hover} relative flex items-center justify-center`}>
+      <BsBox2HeartFill className="w-5 h-8" />
+      <div className="w-5 h-5 rounded-full bg-subMain text-white text-center absolute -top-5 -right-1 flex items-center justify-center">
+        <span className="text-xs">{favourite?.length}</span>
+      </div>
+    </NavLink>
             </div>
         </div>
       </div>

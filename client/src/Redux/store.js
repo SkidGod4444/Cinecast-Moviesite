@@ -9,6 +9,9 @@ const rootReducer = combineReducers({
     UserChangePassword : user.UserChangePasswordReducer,
     UserGetFavoriteMovies : user.UserGetFavoriteMoviesReducer,
     UserDeleteFavoriteMovies : user.UserDeleteFavoriteMoviesReducer,
+    AdminGetAllUsers : user.AdminGetAllUsersReducer,
+    AdminDeleteUser : user.AdminDeleteUserReducer,
+    
 });
 
 // get userinfo 

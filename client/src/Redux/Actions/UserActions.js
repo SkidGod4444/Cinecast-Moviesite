@@ -100,6 +100,30 @@ const DeleteFavouriteMoviesAction = () => async (dispatch, token) => {
     }
 };
 
+// admin get all users action
+const GetAllUsersAction = () => async (dispatch, token) => {
+    try {
+        dispatch({ type: UserConstants.GET_ALL_USERS_REQUEST });
+        const response = await UserApi.getAllUsersService(TokenProtection(token));
+        dispatch({ type: UserConstants.GET_ALL_USERS_SUCCESS, payload: response });
+    } catch (error) {
+        ErrorsAction(error, dispatch, UserConstants.GET_ALL_USERS_FAIL);
+
+    }
+};
+
+// admin delete user action
+const DeleteUserAction = (id) => async (dispatch, token) => {
+    try {
+        dispatch({ type: UserConstants.DELETE_USER_REQUEST });
+        await UserApi.deleteUserService(id, TokenProtection(token));
+        dispatch({ type: UserConstants.DELETE_USER_SUCCESS, });
+        toast.success('User deleted successfully');
+    } catch (error) {
+        ErrorsAction(error, dispatch, UserConstants.DELETE_USER_FAIL);
+
+    }
+};
 
 export { 
     LoginAction, 
@@ -109,4 +133,6 @@ export {
     DeleteProfileAction,
     ChangePasswordAction,
     GetFavoriteMoviesAction,
-    DeleteFavouriteMoviesAction };
+    DeleteFavouriteMoviesAction,
+    GetAllUsersAction,
+    DeleteUserAction };
