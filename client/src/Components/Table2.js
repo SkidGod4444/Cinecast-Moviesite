@@ -20,15 +20,16 @@ const Rows = ({ data, users, OnEditFunc, OnDeleteFunction }) => {
               />
             </div>
           </td>
-          <td className={`${Text}`}>{data._id ? ShortUppercaseId(data._id) : '2rewsg67'}</td>
+          <td className={`${Text}`}>{data?._id ? ShortUppercaseId(data?._id) : '2rewsg67'}</td>
           <td className={`${Text}`}>{DateFormater(data?.createdAt)}</td>
           <td className={`${Text}`}>{data?.username}</td>
           <td className={`${Text}`}>{data?.email}</td>
+          <td className={`${Text}`}>{data?.isAdmin ? 'Admin' : 'User'}</td>
           <td className={`${Text} float-right flex-rows gap-2`}>
             {
               !data?.isAdmin && (
                 <button 
-                onClick={() => OnDeleteFunction(data._id)}
+                onClick={() => OnDeleteFunction(data?._id)}
                 className='bg-subMain text-white rounded flex items-center justify-center w-8 h-8'>
               <MdDeleteForever className='w-6 h-6' />
             </button>
@@ -80,6 +81,9 @@ function Table2({ data, users, OnEditFunc, OnDeleteFunction }) {
                 </th>
                 <th scope='col' className={`${Head}`}>
                   Email
+                </th>
+                <th scope='col' className={`${Head}`}>
+                  Role
                 </th>
               </>
             ) : (
