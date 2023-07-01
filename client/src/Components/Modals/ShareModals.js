@@ -39,7 +39,7 @@ function ShareModals({ modelOpen, setModelOpen, movie }) {
             shareButton: LinkedinShareButton,
         }
     ];
-    const url = `${window.location.protocol}//${window.location.host}/movies/${movie.id}`;
+    const url = `${window.location.protocol}//${window.location.host}/movies/${movie?._id}`;
   return (
     <MainModals modelOpen={modelOpen} setModelOpen={setModelOpen}>
 <div className='online-block w-full sm:w-4/5 border border-border md:w-3/5 lg:w-2/5 mx-auto align-middle p-10 overflow-y-auto h-auto sm:h-4/5 lg:h-auto xl:h-auto xl:h-2/5 tablet:w-2/5 tablet:h-auto tablet:max-w-3xl bg-main text-white rounded-2xl' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>

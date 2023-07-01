@@ -20,23 +20,25 @@ const importMovies = asyncHandler(async (req, res) => {
 
 const getMovies = asyncHandler(async (req, res) => {
     try {
-        const { category, time, ratings, language, year, search } = req.query;
+        const { category, time, ratings, language, search, agelimit } = req.query;
         let query = {
             ...(category && { category }),
             ...(time && { time}),
             ...(ratings && { ratings}),
             ...(language && { language}),
-            ...(year && { year}),
+            ...(agelimit && { agelimit}),
             ...(search && { name: { $regex: search, $options: 'i' }}),
         };
 
     // load more movies functionality
         const page = Number(req.query.pageNumber) || 1;
-        const limit = 2;
+        const limit = 10;
         const skip = (page - 1) * limit;
 
     // find movies with query and skip and limit
-    const movies = await Movie.find(query).skip(skip).limit(limit);
+    const movies = await Movie.find(query)
+    .skip(skip)
+    .limit(limit);
 
     // count the number of movies
     const count = await Movie.countDocuments(query);

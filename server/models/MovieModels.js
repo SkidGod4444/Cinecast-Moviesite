@@ -1,8 +1,9 @@
-import moongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-const moviesSchema = moongoose.Schema({
-    movieId:{
-        type: moongoose.Schema.Types.ObjectId,
+
+const moviesSchema = mongoose.Schema({
+    MovieId: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Movie',
     },
 
@@ -55,6 +56,11 @@ const moviesSchema = moongoose.Schema({
         type: Number,
         required: true,
     },
+    
+    agelimit:{
+        type: Number,
+        required: true,
+    },
 
     video:{
         type: String,
@@ -65,4 +71,4 @@ const moviesSchema = moongoose.Schema({
     timestamps: true,
 });
 
-export default moongoose.model('Movie', moviesSchema);
+export default mongoose.model('Movie', moviesSchema);

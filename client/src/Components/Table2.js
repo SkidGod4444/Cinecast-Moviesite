@@ -26,22 +26,23 @@ const Rows = ({ data, users, OnEditFunc, OnDeleteFunction }) => {
           <td className={`${Text}`}>{data?.email}</td>
           <td className={`${Text}`}>{data?.isAdmin ? 'Admin' : 'User'}</td>
           <td className={`${Text} float-right flex-rows gap-2`}>
-            {
-              !data?.isAdmin && (
-                <button 
+            {!data?.isAdmin && (
+              <button
                 onClick={() => OnDeleteFunction(data?._id)}
-                className='bg-subMain text-white rounded flex items-center justify-center w-8 h-8'>
-              <MdDeleteForever className='w-6 h-6' />
-            </button>
-              )
-            }
+                className='bg-subMain text-white rounded flex items-center justify-center w-8 h-8'
+              >
+                <MdDeleteForever className='w-6 h-6' />
+              </button>
+            )}
           </td>
         </>
       ) : (
         <>
-          <td className={`${Text} font-bold`}>220976ASRDEB</td>
-          <td className={`${Text}`}>{data?.createAt ? data.createAt : '12, jan 2023'}</td>
-          <td className={`${Text}`}>{data.title}</td>
+          <td className={`${Text} font-bold`}>
+            {data?._id ? ShortUppercaseId(data?._id) : '2rewsg67'}
+          </td>
+          <td className={`${Text}`}>{DateFormater(data?.createdAt)}</td>
+          <td className={`${Text}`}>{data?.title}</td>
           <td className={`${Text} float-right flex-rows gap-2`}>
             <button
               onClick={() => OnEditFunc(data)}
@@ -59,7 +60,7 @@ const Rows = ({ data, users, OnEditFunc, OnDeleteFunction }) => {
   );
 };
 
-function Table2({ data, users, OnEditFunc, OnDeleteFunction }) {
+const Table2 = ({ data, users, OnEditFunc, OnDeleteFunction }) => {
   return (
     <div className='overflow-x-scroll overflow-hidden relative w-full'>
       <table className='w-full table-auto border border-border divide-y divide-border hover:border-subMain'>
@@ -85,6 +86,9 @@ function Table2({ data, users, OnEditFunc, OnDeleteFunction }) {
                 <th scope='col' className={`${Head}`}>
                   Role
                 </th>
+                <th scope='col' className={`${Head} text-end`}>
+                  Manage
+                </th>
               </>
             ) : (
               <>
@@ -95,20 +99,20 @@ function Table2({ data, users, OnEditFunc, OnDeleteFunction }) {
                   Date
                 </th>
                 <th scope='col' className={`${Head}`}>
-                  Title
+                  Name
+                </th>
+                <th scope='col' className={`${Head} text-end`}>
+                  Manage
                 </th>
               </>
             )}
-            <th scope='col' className={`${Head} text-end`}>
-              Manage
-            </th>
           </tr>
         </thead>
         <tbody className='bg-main divide-y divide-gray-800'>
-          {data.map((data, i) => (
+          {data.map((item, index) => (
             <Rows
-              key={i}
-              data={data}
+              key={index}
+              data={item}
               users={users}
               OnEditFunc={OnEditFunc}
               OnDeleteFunction={OnDeleteFunction}
@@ -118,6 +122,6 @@ function Table2({ data, users, OnEditFunc, OnDeleteFunction }) {
       </table>
     </div>
   );
-}
+};
 
 export default Table2;

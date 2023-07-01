@@ -14,7 +14,7 @@ export const movies = [
         time: '2h 22min',
         video: 'video.mp4',
         ratings: 3.5,
-        agelimit: 16,
+        agelimit: 160,
     },
     {
         id: 'cc-4AdrEWAADTUjnbvfRTYU765FFT',

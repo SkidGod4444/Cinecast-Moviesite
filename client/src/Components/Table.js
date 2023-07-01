@@ -84,7 +84,7 @@ function Table({data,admin}) {
           </tr>
         </thead>
         <tbody className='bg-main divide-y divide-gray-800'>
-          {data.map((movie, i) => Rows(movie, i, admin))}
+          {data?.map((movie, i) => Rows(movie, i, admin))}
         </tbody>
       </table>
     </div>

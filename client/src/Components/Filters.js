@@ -1,54 +1,33 @@
 import React from 'react';
 import { CategoriesData } from '../Data/CategoriesData';
-import { useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { SelectorIcon, CheckIcon } from '@heroicons/react/solid';
+import { TimeData, RatingData, AgelimitData } from '../Data/FilterData';
 
-const YearData = [
-  { title: 'Sort By Year' },
-  { title: '2000 - 2010' },
-  { title: '2010 - 2020' },
-  { title: '2020 - 2021' },
-  { title: '2021 - 2022' },
-  { title: '2022 - 2023' },
-];
 
-const TimeData = [
-  { title: 'Sort By Time' },
-  { title: '1 - 2 Hours' },
-  { title: '2 - 3 Hours' },
-  { title: '3 - 4 Hours' },
-  { title: '4 - 5 Hours' },
-  { title: '5 - 6 Hours' },
-  { title: '6 - 10 Hours' },
-  { title: '10 - 20 Hours' },
-];
-
-const RatingData = [
-  { title: 'Sort By Rating' },
-  { title: '1 Stars' },
-  { title: '2 Stars' },
-  { title: '3 Stars' },
-  { title: '4 Stars' },
-  { title: '5 Stars' },
-];
-
-function Filters() {
-  const [category, setCategory] = useState({ title: 'Category' });
-  const [year, setYear] = useState(YearData[0]);
-  const [time, setTime] = useState(TimeData[0]);
-  const [rating, setRating] = useState(RatingData[0]);
+function Filters(props) {
+  const {
+    category,
+    setCategory,
+    time,
+    setTime,
+    rating,
+    setRating,
+    agelimit,
+    setAgelimit,
+  } = props?.data;
 
   const Filter = [
     {
       value: category,
       onChange: setCategory,
-      items: CategoriesData,
+      items: CategoriesData?.length > 0 ? 
+      [{ title: 'All Categories' }, ...CategoriesData] : [{ title: 'No Categories Found' }],
     },
     {
-      value: year,
-      onChange: setYear,
-      items: YearData,
+      value: agelimit,
+      onChange: setAgelimit,
+      items: AgelimitData,
     },
     {
       value: time,

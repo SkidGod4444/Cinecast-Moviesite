@@ -1,5 +1,7 @@
 import Axios from "./Axios";
 
+// ****************************** public ****************************** //
+
 const registerService = async (user) => {
     const { data } = await Axios.post('/users', user);
     if (data) {
@@ -23,8 +25,9 @@ const loginService = async (user) => {
     return data;
 }
 
+// ****************************** private ****************************** //
 
-// Upddate profile 
+// Update profile 
 const updateProfileService = async (user, token) => {
     const { data } = await Axios.put('/users', user, {
         headers: {
@@ -36,6 +39,7 @@ const updateProfileService = async (user, token) => {
     }
     return data;
 }
+
 
 // Delete profile
 const deleteProfileService = async (token) => {
@@ -80,6 +84,17 @@ const deleteFavoriteMovies = async (token) => {
     return data;
 }
 
+// add favourites
+const addFavoriteMoviesService = async (MovieId, token) => {
+    const { data } = await Axios.post('/users/favourites', MovieId, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+// ****************************** admin ****************************** //
+
 // admin get all users
 const getAllUsersService = async (token) => {
     const { data } = await Axios.get('/users', {
@@ -112,4 +127,5 @@ export {
     getFavoriteMovies,
     deleteFavoriteMovies,
     getAllUsersService,
-    deleteUserService };
+    deleteUserService,
+    addFavoriteMoviesService };

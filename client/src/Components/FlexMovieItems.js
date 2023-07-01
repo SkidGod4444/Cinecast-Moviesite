@@ -10,17 +10,17 @@ function FlexMovieItems({movies}) {
     <>
     <div className="flex items-center gap-1">
         <TbCategory className="text-subMain w-5 h-5" />
-        <span className="text-sm font-medium">{movies.category}</span>
+        <span className="text-sm font-medium">{movies?.category}</span>
         </div>
 
     <div className="flex items-center gap-1">
         <SlCalender className="text-subMain w-5 h-5" />
-        <span className="text-sm font-medium">{movies.year}</span>
+        <span className="text-sm font-medium">{movies?.year}</span>
         </div>
 
         <div className="flex items-center gap-1">
         <BiTimeFive className="text-subMain w-5 h-5" />
-        <span className="text-sm font-medium">{movies.time}</span>
+        <span className="text-sm font-medium">{movies?.time} Hrs</span>
         </div>
 {/* 
         <div className="flex items-center gap-1">

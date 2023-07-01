@@ -1,24 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../Layout/Layout'
 import { useParams } from 'react-router-dom'
-import {movies} from '../Data/MovieData'
 import MovieINFO from '../Components/MovieInfo/MovieINFO'
 import Titles from '../Components/Titles'
 import { MdOutlineCollectionsBookmark } from 'react-icons/md'
 import Movie from '../Components/Movie'
 import ShareModals from '../Components/Modals/ShareModals'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { GetMovieByIdAction } from '../Redux/Actions/MoviesActions'
+import Loader from '../Components/Notifications/LoaderN';
+import {Empty} from '../Components/Notifications/EmptyN';
 
 function MovieInfo() {
   const [modelOpen, setModelOpen] = React.useState(false);
   const {id} = useParams();
-  const movie = movies.find(movie => movie.id === id);
-  const RelatedMovies = movies.filter(
-  (m) => m.category === movie.category );
+  const dispatch = useDispatch();
+  const sameClass = 'w-full gap-6 flex justify-center items-center flex-colo min-h-screen'
   
+  const {isLoading, isError, movie} = useSelector((state) => state.GetMovieById);
+  const {movies} = useSelector((state) => state.GetAllMovies);
+  const RelatedMovies = movies?.filter((m) => m.category === movie?.category );
+  // use Effect
+  useEffect(() => {
+  // movie by id 
+  dispatch(GetMovieByIdAction(id))
+  },[dispatch, id])
+
   return (
     <Layout>
-      <ShareModals modelOpen={modelOpen} setModelOpen={setModelOpen} movie={movie} />
+      {
+        isLoading ? <div className={sameClass}>
+          <Loader />
+        </div>
+        :
+        isError ? <div className={sameClass}>
+          <Empty message='It seems like Database not found!'/>
+        </div>
+        : (
+          <>
+          <ShareModals modelOpen={modelOpen} setModelOpen={setModelOpen} movie={movie} />
       <MovieINFO movie={movie} setModelOpen={setModelOpen} />
       {/* related movies */}
       <div className='my-16'>
@@ -29,6 +49,10 @@ function MovieInfo() {
           ))}
         </div>
       </div>
+          </>
+        )
+      }
+      
       </Layout>
   )
 }

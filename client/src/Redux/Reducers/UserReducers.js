@@ -123,6 +123,23 @@ export const UserDeleteFavoriteMoviesReducer = (state = {}, action) => {
     }
 }
 
+// add favorites
+
+export const UserAddFavoriteMoviesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case UserConstants.ADD_FAVORITES_REQUEST:
+            return { isLoading: true };
+        case UserConstants.ADD_FAVORITES_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case UserConstants.ADD_FAVORITES_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case UserConstants.ADD_FAVORITES_RESET:
+            return {};
+        default:
+            return state;
+    }
+}
+
 // admin get all users
 
 export const AdminGetAllUsersReducer = (state = {

@@ -100,6 +100,18 @@ const DeleteFavouriteMoviesAction = () => async (dispatch, token) => {
     }
 };
 
+// add favorites action
+const AddFavouriteMoviesAction = (MovieId) => async (dispatch, token) => {
+    try {
+        dispatch({ type: UserConstants.ADD_FAVORITES_REQUEST });
+        const response = await UserApi.addFavoriteMoviesService(MovieId, TokenProtection(token));
+        dispatch({ type: UserConstants.ADD_FAVORITES_SUCCESS, payload: response });
+        toast.success('Added to your favorites');
+    } catch (error) {
+        ErrorsAction(error, dispatch, UserConstants.ADD_FAVORITES_FAIL);
+
+    }
+};
 // admin get all users action
 const GetAllUsersAction = () => async (dispatch, token) => {
     try {
@@ -134,5 +146,6 @@ export {
     ChangePasswordAction,
     GetFavoriteMoviesAction,
     DeleteFavouriteMoviesAction,
+    AddFavouriteMoviesAction,
     GetAllUsersAction,
     DeleteUserAction };
