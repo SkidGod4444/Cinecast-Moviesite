@@ -43,6 +43,7 @@ function Login() {
   if (isSuccess) {
     console.log(userInfo);
     toast.success('Nice to see you again!');
+    toast.error('Please refresh to continue!');
   }
   if (isError) {
     toast.error(isError);

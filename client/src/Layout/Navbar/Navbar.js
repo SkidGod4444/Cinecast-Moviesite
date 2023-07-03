@@ -49,19 +49,19 @@ function Navbar() {
         </div>
         {/* MENUS */}
         <div className="col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center">
-          <NavLink to="/movies" className={Hover} activeClassName={hoverActive}>
+          <NavLink to="/movies" className={Hover} activeclassname={hoverActive}>
             Movies
           </NavLink>
-          <NavLink to="/about-cinecast" className={Hover} activeClassName={hoverActive}>
+          <NavLink to="/about-cinecast" className={Hover} activeclassname={hoverActive}>
             Cinecast
           </NavLink>
-          <NavLink to="/contact-cinecast" className={Hover} activeClassName={hoverActive}>
+          <NavLink to="/contact-cinecast" className={Hover} activeclassname={hoverActive}>
             Contact
           </NavLink>
           <NavLink
             to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
             className={Hover}
-            activeClassName={hoverActive}
+            activeclassname={hoverActive}
           >
             {userInfo ? (
               <img
@@ -73,7 +73,7 @@ function Navbar() {
               <RiUser4Fill className="w-6 h-8" />
             )}
           </NavLink>
-          <NavLink to="/favourites" className={`${Hover} relative flex items-center justify-center`} activeClassName={hoverActive}>
+          <NavLink to="/favourites" className={`${Hover} relative flex items-center justify-center`} activeclassname={hoverActive}>
             <BsBox2HeartFill className="w-5 h-8" />
             <div className="w-5 h-5 rounded-full bg-subMain text-white text-center absolute -top-5 -right-1 flex items-center justify-center">
               <span className="text-xs">{favourite?.length}</span>

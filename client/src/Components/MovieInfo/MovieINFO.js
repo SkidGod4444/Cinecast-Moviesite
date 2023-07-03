@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FavoriteMovie, IsFavorite } from '../../Context/Functionalities'
 
 
-function MovieINFO({movie, setModelOpen}) {
+function MovieINFO({movie, setModelOpen, DownloadVideo, progress}) {
   const dispatch = useDispatch();
   const {isLoading:FavouritesLoading} = useSelector(state => state.UserAddFavoriteMovies)
   const {userInfo} = useSelector(state => state.UserLogin)
@@ -15,12 +15,12 @@ function MovieINFO({movie, setModelOpen}) {
   return (
     <div className='w-full xl:h-screen relative text-white'>
       {/* Background Image */}
-      <img src={movie?.poster ? `/images/movies/${movie?.poster}` : `/images/userdp.jpg`} alt={movie?._id} 
+      <img src={movie?.poster ? movie.poster : `/images/userdp.jpg`} alt={movie?._id} 
       className='w-full hidden xl:inline-block h-full object-cover' />
       <div className='xl:bg-main bg-dry flex-colo xl:bg-opacity-90 xl:absolute top-0 left-0 right-0 bottom-0'>
         <div className='container px-3 mx-auto 2xl:px-32 xl:grid grid-cols-3 flex-colo py-10 lg:py-2 gap-8'>
           <div className='xl:col-span-1 w-full xl:order-none order-last h-header bg-dry border border-gray-800 rounded-lg overflow-hidden'>
-            <img src={movie?.titleimg ? `/images/movies/${movie?.titleimg}`  : `/images/userdp.jpg`} alt={movie?._id} className='w-full h-full object-cover' />
+            <img src={movie?.titleimg ? movie?.titleimg  : `/images/userdp.jpg`} alt={movie?._id} className='w-full h-full object-cover' />
           </div>
           <div className='col-span-2 md:grid grid-cols-5 gap-4 items-center'>
             <div className='col-span-3 flex flex-col gap-10'>
@@ -102,7 +102,10 @@ function MovieINFO({movie, setModelOpen}) {
                 </div>
                 {/* download */}
                 <div className='col-span-1 pl-2 flex-colo border-r border-border'>
-                  <button className='w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20'>
+                  <button 
+                  disabled={progress > 0 && progress < 100}
+                  onClick={() => DownloadVideo(movie?.video, movie?.name)}
+                  className='w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20'>
                     <FaDownload style={{marginLeft: '12px'}}/>
                   </button>
                 </div>

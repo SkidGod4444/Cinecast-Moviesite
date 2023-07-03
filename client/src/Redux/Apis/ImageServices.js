@@ -1,5 +1,6 @@
-import toast from 'react-hot-toast';
+
 import Axios from './Axios';
+import toast from 'react-hot-toast';
 
 
 
@@ -13,6 +14,7 @@ const ImageUploadService = async (file, setLoading) => {
     } catch (error) {
         setLoading(false);
         toast.error('Image upload failed!');
+        console.log(error);
     }
     }
 

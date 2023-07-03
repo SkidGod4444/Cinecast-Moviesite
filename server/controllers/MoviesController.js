@@ -169,7 +169,7 @@ const deleteAllMovies = asyncHandler(async (req, res) => {
 
 const createMovie = asyncHandler(async (req, res) => {
     try {
-        const { name, titleimg, director, poster, desc, category, time, ratings, language, year, video } = req.body;
+        const { name, titleimg, director, poster, desc, category, time, ratings, language, year, agelimit, video } = req.body;
         const movie = new Movie({
             name,
             titleimg,
@@ -179,7 +179,8 @@ const createMovie = asyncHandler(async (req, res) => {
             time,
             ratings,
             language,
-            year,
+            year, 
+            agelimit,
             video,
             poster,
         });

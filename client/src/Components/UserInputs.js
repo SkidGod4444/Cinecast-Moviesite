@@ -21,7 +21,7 @@ export const Input = ({ type, placeholder, label, bg , register, name, value, on
     )
 }
 
-export const Select = ({ label, options }) => {
+export const Select = ({ label, options}) => {
     return (
       <div className='mt-8'>
         <label className='text-sm font-medium text-white-700'>{label}</label>

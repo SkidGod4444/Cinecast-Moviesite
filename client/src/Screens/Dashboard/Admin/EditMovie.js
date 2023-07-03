@@ -5,84 +5,92 @@ import Uploader from '../../../Components/Uploader';
 import { Select } from '../../../Components/UserInputs';
 import { CategoriesData } from '../../../Data/CategoriesData';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { MovieValidation } from '../../../Components/Validation/MovieValidation';
 import { toast } from 'react-hot-toast';
 import {InlineError} from '../../../Components/Notifications/ErrorN';
 import {ImagePreview} from '../../../Components/ImagePreview';
-import { CreateMovieAction } from '../../../Redux/Actions/MoviesActions';
+import { GetMovieByIdAction, UpdateMovieAction } from '../../../Redux/Actions/MoviesActions';
+import Loader from '../../../Components/Notifications/LoaderN';
+import {Empty} from '../../../Components/Notifications/EmptyN';
 
-
-function AddMovie() {
-  const [imageWithOutTitle, setImageWithOutTitle] = useState('')
-  const [imageTitle, setImageTitle] = useState('')
-  const [VideoURL, setVideoURL] = useState('')
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+function EditMovie() {
+    // const sameClass = 'w-full gap-6 flex-colo min-h-screen'
+    const [imageWithOutTitle, setImageWithOutTitle] = useState('')
+    const [imageTitle, setImageTitle] = useState('')
+    const [VideoURL, setVideoURL] = useState('')
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {id} = useParams()
 
   // use Selectors
-  const { isLoading, isError, isSuccess } = useSelector(state => state.CreateMovie)
-
+    const { isLoading, isError, movie } = useSelector(state => state.GetMovieById)
+    const { isLoading:EditLoading, isError:EditError, isSuccess } = useSelector(state => state.UpdateMovie)
   // validate movie
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(MovieValidation),
   });
 
   // handle submit
-  const onSubmit = (data) => {
-    dispatch(CreateMovieAction({
-      ...data,
-      poster: imageWithOutTitle,
-      titleimg: imageTitle,
-      video: VideoURL,
-      })
+    const onSubmit = (data) => {
+    dispatch(UpdateMovieAction(movie?._id,{
+        ...data,
+        poster: imageWithOutTitle,
+        titleimg: imageTitle,
+        video: VideoURL,
+        })
     )
-    // console.log({
-    //   ...data,
-    //   poster: imageWithOutTitle,
-    //   titleimg: imageTitle,
-    //   video: VideoURL,
-
-    // })
-  };
+    };
 
   // use effect 
   useEffect(() => {
+    if (movie?._id !== id) {
+        dispatch(GetMovieByIdAction(id))
+    }
+    else {
+        setValue('name', movie?.name)
+        setValue('time', movie?.time)
+        setValue('language', movie?.language)
+        setValue('year', movie?.year)
+        setValue('director', movie?.director)
+        setValue('desc', movie?.desc)
+        setValue('category', movie?.category)
+        setValue('agelimit', movie?.agelimit)
+        setValue('ratings', movie?.ratings)
+        setImageTitle(movie?.titleimg)
+        setImageWithOutTitle(movie?.poster)
+        setVideoURL(movie?.video)
+    }
     if (isSuccess) {
-      reset({
-        name: '',
-        time: 0,
-        language: '',
-        year: 0,
-        director: '',
-        desc: '',
-        category: '',
-        agelimit: 0,
-        ratings: 0,
-      })
-      setImageTitle('')
-      setImageWithOutTitle('')
-      setVideoURL('')
-      dispatch({ type: 'CREATE_MOVIE_RESET' })
-      navigate('/addmovie')
+      
+      dispatch({ type: 'UPDATE_MOVIE_RESET' })
+      navigate(`/movie/edit/${id}`)
     }
-    if (isError) {
-      dispatch({ type: 'CREATE_MOVIE_RESET' })
-      toast.error(isError)
+    if (EditError) {
+      dispatch({ type: 'UPDATE_MOVIE_RESET' })
+      toast.error(EditError)
     }
-    }, [isSuccess, reset, isError, dispatch, navigate])
+    }, [dispatch, id, movie, isSuccess, EditError, navigate, setValue])
   
   return (
     <SideBar>
+        {
+            isLoading ? (
+                <Loader />
+            )
+            : isError ? (
+                <Empty message='Movie Not Found!'/>
+            )
+            : (
         <div className='flex flex-col gap-2'>
-        <h2 className='text-xl font-bold'>Create Movie</h2>
+        <h2 className='text-xl font-bold'>Edit "{movie?.name}"</h2>
         <div className='w-full grid md:grid-cols-2 gap-6'>
         <div className='w-full'>
             <Input 
@@ -258,15 +266,18 @@ function AddMovie() {
         onClick={handleSubmit(onSubmit)}
         className='bg-main font-medium transitions hover:bg-subMain border border-subMain text-white px-6 py-3 rounded w-full sm:w-auto '>
           {
-            isLoading ? ( 'Publishing...' ):( <>
-              Publish Movie
+            EditLoading ? ( 'Saving...' ):( <>
+              Save Changes
             </>)
           }
           </button>
         </div>
         </div>
+            )
+        }
+        
     </SideBar>
   )
 }
 
-export default AddMovie
+export default EditMovie

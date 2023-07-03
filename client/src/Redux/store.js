@@ -27,6 +27,10 @@ const rootReducer = combineReducers({
     GetRandomMovies: movies.MoviesRandomReducer,
     GetTopRatedMovies: movies.MoviesTopRatedReducer,
     GetMovieById: movies.MoviesDetailsReducer,
+    DeleteMovie: movies.DeleteMovieReducer,
+    DeleteAllMovies: movies.DeleteAllMoviesReducer,
+    CreateMovie: movies.CreateMovieReducer,
+    UpdateMovie: movies.UpdateMovieReducer,
     
 });
 

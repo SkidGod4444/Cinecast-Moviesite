@@ -16,7 +16,6 @@ function Uploader({setImageUrl}) {
       file.append('file', acceptedFiles[0]);
       const data  = await ImageUploadService(file, setLoading);
       setImageUrl(data);
-      console.log(data);
     },
     [setImageUrl]
   )
@@ -24,7 +23,7 @@ function Uploader({setImageUrl}) {
 
 
 
-    const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone(
+  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone(
     {
         multiple: false,
         maxSize: 1048576,

@@ -2,7 +2,7 @@ import React from 'react';
 import { BsFillGridFill } from 'react-icons/bs';
 import { FaListAlt, FaUsers, FaHeart } from 'react-icons/fa';
 import { RiMovie2Fill, RiLockPasswordLine, RiLogoutCircleLine } from 'react-icons/ri';
-import { HiViewGridAdd } from 'react-icons/hi';
+// import { HiViewGridAdd } from 'react-icons/hi';
 import { FiSettings } from 'react-icons/fi';
 import Layout from '../../Layout/Layout';
 import { NavLink } from 'react-router-dom';
@@ -42,11 +42,11 @@ function SideBar({ children }) {
       path: '/addmovie',
       icon: RiMovie2Fill
     },
-    {
-      name: 'Categories',
-      path: '/categories',
-      icon: HiViewGridAdd
-    },
+    // {
+    //   name: 'Categories',
+    //   path: '/categories',
+    //   icon: HiViewGridAdd
+    // },
     {
       name: 'Users',
       path: '/users',

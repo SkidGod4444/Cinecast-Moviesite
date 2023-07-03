@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../Layout/Layout';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetMovieByIdAction } from '../Redux/Actions/MoviesActions';
 import Loader from '../Components/Notifications/LoaderN';
 import { Empty } from '../Components/Notifications/EmptyN';
-import { FavoriteMovie, IsFavorite } from '../Context/Functionalities';
+import { DownloadVideo, FavoriteMovie, IsFavorite } from '../Context/Functionalities';
+import { SidebarContext } from '../Context/DrawerContext'
+import FileSaver from 'file-saver'
+
 
 function WatchScreen() {
   let { id } = useParams();
@@ -22,8 +25,19 @@ function WatchScreen() {
   const IsInFavorite = (movie) => {
     return IsFavorite(movie)
 }
+const {
+  progress,
+  setprogress
+} = useContext(SidebarContext);
 
-
+// download movie functionality
+const DownloadMovieVideo = async (videoURL, name) => {
+  await DownloadVideo(videoURL,setprogress)
+  .then((data) => {
+    setprogress(0)
+    FileSaver.saveAs(data, name);
+  })
+}
     // use Effect
     useEffect(() => {
     // movie by id 
@@ -49,7 +63,10 @@ function WatchScreen() {
               transitions bg-opacity-30 rounded px-4 py-3 text-sm`}>
                 <FaHeart />
               </button>
-              <button className='bg-subMain flex-rows gap-2 hover:text-main transitions text-white rounded px-8 py-3 font-medium text-sm'>
+              <button 
+              disabled={progress > 0 && progress < 100}
+              onClick={() => DownloadMovieVideo(movie?.video, movie?.name)}
+              className='bg-subMain flex-rows gap-2 hover:text-main transitions text-white rounded px-8 py-3 font-medium text-sm'>
                 <FaDownload /> Download
               </button>
             </div>
@@ -89,7 +106,7 @@ function WatchScreen() {
             </div>
             <div className='w-full h-40 md:h-screen rounded-lg overflow-hidden'>
               <img
-                src={movie?.poster ? `/images/movies/${movie.poster}` : ''}
+                src={movie?.poster ? movie.poster : ''}
                 alt={movie?._id}
                 className='w-full h-full object-cover rounded-lg'
               />

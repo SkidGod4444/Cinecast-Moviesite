@@ -69,11 +69,11 @@ export const CategoriesData = [
     },
     {
         _id: 18,
-        title: "War",
+        title: "TV Show",
     },
     {
         _id: 19,
-        title: "TV Movie",
+        title: "Netflix",
     },
     {
         _id: 20,

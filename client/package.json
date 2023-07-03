@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.4.0",
+    "file-saver": "^2.0.5",
     "file-server": "^2.2.1",
     "moment": "^2.29.4",
     "rc-drawer": "^6.2.0",

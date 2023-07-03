@@ -4,7 +4,6 @@ import { BsCaretLeftFill, BsCaretRightFill, BsFillBookmarkHeartFill } from 'reac
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper';
 import { Link } from 'react-router-dom';
-import Ratings from '../Ratings';
 import { Empty } from '../Notifications/EmptyN';
 import Loader from '../Notifications/LoaderN';
 
@@ -40,7 +39,7 @@ const SwiperTop = ({ prevEl, nextEl, movies }) => {
           <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
           <Link to={`/movies/${movie?._id}`}>
             <img
-              src={movie?.titleimg ? `/images/movies/${movie.titleimg}` : '/images/userdp.jpg'}
+              src={movie?.titleimg ? movie.titleimg : '/images/userdp.jpg'}
               alt={movie?.name}
               className="w-full h-full object-cover rounded-lg"
             />

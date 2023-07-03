@@ -25,6 +25,8 @@ import { AdminProtectedRouters, ProtectedRouters } from './ProtectedRouters';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFavoriteMoviesAction } from './Redux/Actions/UserActions';
 import { toast } from 'react-hot-toast';
+import EditMovie from './Screens/Dashboard/Admin/EditMovie';
+import DrawerContext from './Context/DrawerContext';
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
       dispatch(GetFavoriteMoviesAction())
     }
     if (isError) {
-      toast.error('Something went wrong')
+      toast.error(isError)
       dispatch({type: 'ADD_FAVORITES_RESET'})
     }
     if (isSuccess) {
@@ -49,6 +51,7 @@ function App() {
 
   return (
     <>
+    <DrawerContext>
     <ToastN />
 <ScrollOnTop>
 <Routes>
@@ -76,11 +79,13 @@ function App() {
   <Route path="/categories" element={<Categories />} />
   <Route path="/users" element={<Users />} />
   <Route path="/addmovie" element={<AddMovie />} />
+  <Route path="/movie/edit/:id" element={<EditMovie />} />
   
   </Route>
   </Route>
 </Routes>
 </ScrollOnTop>
+</DrawerContext>
     </>
 
   );

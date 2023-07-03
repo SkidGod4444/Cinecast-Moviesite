@@ -36,7 +36,7 @@ const Swipper = ({sameClass,movies}) => {
         >
             {movies?.slice(0, 5).map((movies, index) => (
                     <SwiperSlide key={index} className="relative rounded overflow-hidden">
-                        <img src={movies?.poster ? `/images/movies/${movies.poster} `: '/images/userdp.jpg'} alt={movies?.name} className="w-full h-full object-cover" />
+                        <img src={movies?.poster ? movies.poster : '/images/userdp.jpg'} alt={movies?.name} className="w-full h-full object-cover" />
                         <div className="absolute linear-bg xl:pl-50 xl:pt-75 sm:pl-32 pl-8 top-0 bottom-0 right-0 left-0 flex flex-col justify-center lg:gap-8 md:gap-5 gap-4">
                         <h1 className="xl-text-4xl truncate capitalize font-sans sm:text-2xl text-xl font-bold">{movies?.name}</h1>
 
@@ -53,9 +53,9 @@ const Swipper = ({sameClass,movies}) => {
                                         <button 
                                         onClick={() => FavoriteMovie(movies, dispatch, userInfo)}
                                         disabled={IsInFavorite(movies) || isLoading}
-                                        className={`bg-white
+                                        className={`bg-white  
                                         ${IsInFavorite(movies) ? 'text-subMain' : 'text-white'}
-                                        hover:bg-subMain transitions px-4 py-3 rounded text-sm bg-opacity-30`}> 
+                                        transitions px-4 py-3 rounded text-sm bg-opacity-30`}> 
                                             <BsFillSuitHeartFill />
                                             </button>
                                         </div>
