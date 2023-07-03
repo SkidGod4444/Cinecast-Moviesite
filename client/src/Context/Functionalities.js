@@ -22,37 +22,37 @@ const FavoriteMovie = (movie, dispatch, userInfo) => {
 
 
 // download movie functionality
-const DownloadVideo = async (videoURL,setProgress) => {
-    const {data} = await Axios.get({
+const DownloadVideo = async (videoURL, setProgress) => {
+    if (typeof videoURL !== 'string') {
+        throw new Error('Invalid videoURL');
+      }
+    const { data } = await Axios.get({
         url: videoURL,
         responseType: 'blob',
-        method: 'GET',
         onDownloadProgress: (progressEvent) => {
-            const {loaded, total} = progressEvent
-            let percent = Math.floor((loaded * 100) / total)
-            setProgress(percent)
+            const { loaded, total } = progressEvent;
+            let percent = Math.floor((loaded * 100) / total);
+            setProgress(percent);
             if (percent > 0 && percent < 100) {
-                toast.loading(`Downloading... ${percent}%`,
-                {
-                    id: 'download',
-                    duration: 1000000000,
-                    position: 'bottom-left',
-                    style: {
-                        background: '#0B0F29',
-                        color: '#fff',
-                        borderRadius: '10px',
-                        border: '.5px solid #F20000',
-                        padding: '16px',
-                    },
-                    icon : <IoMdCloudDownload className='text-2xl mr-2 text-subMain'/>
-                    })
+            toast.loading(`Downloading... ${percent}%`, {
+                id: 'download',
+                duration: 1000000000,
+                position: 'bottom-left',
+                style: {
+                background: '#0B0F29',
+                color: '#fff',
+                borderRadius: '10px',
+                border: '.5px solid #F20000',
+                padding: '16px',
+                },
+                icon: <IoMdCloudDownload className='text-2xl mr-2 text-subMain' />,
+            });
+            } else {
+            toast.dismiss('download');
             }
-            else {
-                toast.dismiss('download')
-            }
-        }
-    }
-    )
-    return data
-}
+        },
+        });
+        return data;
+    };
+    
 export { IsFavorite, FavoriteMovie, DownloadVideo }

@@ -1,17 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FlexMovieItems from '../FlexMovieItems'
 import { FaHeart, FaPlay, FaShareAlt, FaDownload} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Ratings from '../Ratings'
 import { useDispatch, useSelector } from 'react-redux'
 import { FavoriteMovie, IsFavorite } from '../../Context/Functionalities'
+import { toast } from 'react-hot-toast'
 
 
-function MovieINFO({movie, setModelOpen, DownloadVideo, progress}) {
+function MovieINFO({movie, setModelOpen}) {
   const dispatch = useDispatch();
   const {isLoading:FavouritesLoading} = useSelector(state => state.UserAddFavoriteMovies)
   const {userInfo} = useSelector(state => state.UserLogin)
   const IsInFavorite = IsFavorite(movie)
+
+  const [progress, setProgress] = useState(0);
+
+const handleDownload = async () => {
+  try {
+    const response = await fetch(movie.video);
+    const blob = await response.blob();
+    const videoURL = URL.createObjectURL(blob);
+    
+    // Start downloading the video
+    const anchor = document.createElement('a');
+    anchor.href = videoURL;
+    anchor.download = movie.name;
+    anchor.click();
+
+    // Show toast loading with downloading progress
+    toast.loading(`Downloading... ${progress}%`, {
+      id: 'download',
+      duration: 1000000000,
+      position: 'bottom-left',
+      style: {
+        background: '#0B0F29',
+        color: '#fff',
+        borderRadius: '10px',
+        border: '.5px solid #F20000',
+        padding: '16px',
+      },
+    });
+
+    // Update progress and dismiss toast when download is complete
+    const downloadProgress = setInterval(() => {
+      setProgress((prevProgress) => prevProgress + 1);
+      if (progress >= 100) {
+        clearInterval(downloadProgress);
+        toast.dismiss('download');
+      }
+    }, 100);
+  } catch (error) {
+    console.error('Error downloading video:', error);
+    toast.error('Error downloading video');
+  }
+};
+
   return (
     <div className='w-full xl:h-screen relative text-white'>
       {/* Background Image */}
@@ -102,9 +146,9 @@ function MovieINFO({movie, setModelOpen, DownloadVideo, progress}) {
                 </div>
                 {/* download */}
                 <div className='col-span-1 pl-2 flex-colo border-r border-border'>
-                  <button 
-                  disabled={progress > 0 && progress < 100}
-                  onClick={() => DownloadVideo(movie?.video, movie?.name)}
+                <button 
+              disabled={progress > 0 && progress < 100}
+              onClick={handleDownload}
                   className='w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20'>
                     <FaDownload style={{marginLeft: '12px'}}/>
                   </button>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react'; // useContext, 
 import Layout from '../Layout/Layout';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetMovieByIdAction } from '../Redux/Actions/MoviesActions';
 import Loader from '../Components/Notifications/LoaderN';
 import { Empty } from '../Components/Notifications/EmptyN';
-import { DownloadVideo, FavoriteMovie, IsFavorite } from '../Context/Functionalities';
-import { SidebarContext } from '../Context/DrawerContext'
-import FileSaver from 'file-saver'
+import { FavoriteMovie, IsFavorite } from '../Context/Functionalities'; //DownloadVideo,
+// import { SidebarContext } from '../Context/DrawerContext'
+// import FileSaver from 'file-saver'
+import { toast } from 'react-hot-toast';
 
 
 function WatchScreen() {
@@ -25,19 +26,56 @@ function WatchScreen() {
   const IsInFavorite = (movie) => {
     return IsFavorite(movie)
 }
-const {
-  progress,
-  setprogress
-} = useContext(SidebarContext);
 
+const [progress, setProgress] = useState(0);
+
+const handleDownload = async () => {
+  try {
+    const response = await fetch(movie.video);
+    const blob = await response.blob();
+    const videoURL = URL.createObjectURL(blob);
+    
+    // Start downloading the video
+    const anchor = document.createElement('a');
+    anchor.href = videoURL;
+    anchor.download = movie.name;
+    anchor.click();
+
+    // Show toast loading with downloading progress
+    toast.loading(`Downloading... ${progress}%`, {
+      id: 'download',
+      duration: 1000000000,
+      position: 'bottom-left',
+      style: {
+        background: '#0B0F29',
+        color: '#fff',
+        borderRadius: '10px',
+        border: '.5px solid #F20000',
+        padding: '16px',
+      },
+    });
+
+    // Update progress and dismiss toast when download is complete
+    const downloadProgress = setInterval(() => {
+      setProgress((prevProgress) => prevProgress + 1);
+      if (progress >= 100) {
+        clearInterval(downloadProgress);
+        toast.dismiss('download');
+      }
+    }, 100);
+  } catch (error) {
+    console.error('Error downloading video:', error);
+    toast.error('Error downloading video');
+  }
+};
 // download movie functionality
-const DownloadMovieVideo = async (videoURL, name) => {
-  await DownloadVideo(videoURL,setprogress)
-  .then((data) => {
-    setprogress(0)
-    FileSaver.saveAs(data, name);
-  })
-}
+// const DownloadMovieVideo = async (videoURL, name) => {
+//   await DownloadVideo(videoURL,setprogress)
+//   .then((data) => {
+//     setprogress(0)
+//     FileSaver.saveAs(data, name);
+//   })
+// }
     // use Effect
     useEffect(() => {
     // movie by id 
@@ -65,7 +103,7 @@ const DownloadMovieVideo = async (videoURL, name) => {
               </button>
               <button 
               disabled={progress > 0 && progress < 100}
-              onClick={() => DownloadMovieVideo(movie?.video, movie?.name)}
+              onClick={handleDownload}
               className='bg-subMain flex-rows gap-2 hover:text-main transitions text-white rounded px-8 py-3 font-medium text-sm'>
                 <FaDownload /> Download
               </button>
@@ -75,11 +113,12 @@ const DownloadMovieVideo = async (videoURL, name) => {
         
         {/* play video */}
         {playing ? (
-          <video controls autoPlay={playing} className='w-full h-full rounded'>
+          <video controls autoPlay={playing} className='w-full h-full rounded' controlsList="nodownload">
             <source
               src={movie?.video}
               type='video/mp4'
               title={movie?._id}
+              
             />
           </video>
         ) : (

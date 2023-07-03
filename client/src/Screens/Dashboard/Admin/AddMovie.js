@@ -18,7 +18,6 @@ import { CreateMovieAction } from '../../../Redux/Actions/MoviesActions';
 function AddMovie() {
   const [imageWithOutTitle, setImageWithOutTitle] = useState('')
   const [imageTitle, setImageTitle] = useState('')
-  const [VideoURL, setVideoURL] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -41,7 +40,6 @@ function AddMovie() {
       ...data,
       poster: imageWithOutTitle,
       titleimg: imageTitle,
-      video: VideoURL,
       })
     )
     // console.log({
@@ -66,10 +64,10 @@ function AddMovie() {
         category: '',
         agelimit: 0,
         ratings: 0,
+        video: '',
       })
       setImageTitle('')
       setImageWithOutTitle('')
-      setVideoURL('')
       dispatch({ type: 'CREATE_MOVIE_RESET' })
       navigate('/addmovie')
     }
@@ -240,16 +238,18 @@ function AddMovie() {
           <label className='text-border font-semibold text-sm'>
             Movie Video
           </label>
-          <div className={`w-full grid ${VideoURL && 'md:grid-cols-2'} gap-6`}>
-            {
-              VideoURL && (
-                <div className='w-full bg-main text-sm text-subMain py-4 border border-border rounded flex-col'>
-                  Video Uploaded!
-                  </div>
-                  )
-            }
-          <Uploader setImageUrl={setVideoURL}/>
-          </div>
+      <div className='w-full'>
+      <Input 
+        label="Movie Link" 
+        type='url'
+        placeholder="paste firebase link here" 
+        bg={true}
+        name="video"
+        register={register("video")}/>
+        {
+          errors.video && <InlineError text={errors.video.message} />
+        }
+        </div>
           </div>
           {/* SUBMIT */}
         <div className='flex justify-end items-center my-4'>

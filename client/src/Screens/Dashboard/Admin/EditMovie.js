@@ -20,7 +20,6 @@ function EditMovie() {
     // const sameClass = 'w-full gap-6 flex-colo min-h-screen'
     const [imageWithOutTitle, setImageWithOutTitle] = useState('')
     const [imageTitle, setImageTitle] = useState('')
-    const [VideoURL, setVideoURL] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {id} = useParams()
@@ -44,7 +43,6 @@ function EditMovie() {
         ...data,
         poster: imageWithOutTitle,
         titleimg: imageTitle,
-        video: VideoURL,
         })
     )
     };
@@ -64,9 +62,9 @@ function EditMovie() {
         setValue('category', movie?.category)
         setValue('agelimit', movie?.agelimit)
         setValue('ratings', movie?.ratings)
+        setValue('video', movie?.video)
         setImageTitle(movie?.titleimg)
         setImageWithOutTitle(movie?.poster)
-        setVideoURL(movie?.video)
     }
     if (isSuccess) {
       
@@ -248,16 +246,18 @@ function EditMovie() {
           <label className='text-border font-semibold text-sm'>
             Movie Video
           </label>
-          <div className={`w-full grid ${VideoURL && 'md:grid-cols-2'} gap-6`}>
-            {
-              VideoURL && (
-                <div className='w-full bg-main text-sm text-subMain py-4 border border-border rounded flex-col'>
-                  Video Uploaded!
-                  </div>
-                  )
-            }
-          <Uploader setImageUrl={setVideoURL}/>
-          </div>
+      <div className='w-full'>
+      <Input 
+        label="Movie Link" 
+        type='url'
+        placeholder="paste firebase link here" 
+        bg={true}
+        name="video"
+        register={register("video")}/>
+        {
+          errors.video && <InlineError text={errors.video.message} />
+        }
+        </div>
           </div>
           {/* SUBMIT */}
         <div className='flex justify-end items-center my-4'>
