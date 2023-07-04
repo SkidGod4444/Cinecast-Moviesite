@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-    baseURL: 'http://localhost:5555/api',
+    baseURL: 'https://cinecast-backend.onrender.com',
 });
 
 export default Axios;
