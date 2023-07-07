@@ -16,7 +16,7 @@ function MoviesPage() {
   const dispatch = useDispatch();
   const [category, setCategory] = useState({ title: 'All Categories' });
   const [time, setTime] = useState(TimeData[0]);
-  const [rating, setRating] = useState(RatingData[0]);
+  const [ratings, setRatings] = useState(RatingData[0]);
   const [agelimit, setAgelimit] = useState(AgelimitData[0]);
 
   const sameClass = 'w-full gap-6 flex-colo min-h-screen'
@@ -31,12 +31,12 @@ function MoviesPage() {
     const query = {
       category: category?.title === 'All Categories' ? '' : category?.title,
       time: time?.title.replace(/\D/g, ''),
-      rating: rating?.title.replace(/\D/g, ''),
+      ratings: ratings?.title.replace(/\D/g, ''),
       agelimit: agelimit?.title.replace(/\D/g, ''),
       search: search ? search : '',
     };
     return query;
-  },[ category, time, rating, agelimit, search]);
+  },[ category, time, ratings, agelimit, search]);
 
   // useEffect
   useEffect(() => {
@@ -67,8 +67,8 @@ function MoviesPage() {
     setCategory: setCategory,
     time: time,
     setTime: setTime,
-    rating: rating,
-    setRating: setRating,
+    ratings: ratings,
+    setRatings: setRatings,
     agelimit: agelimit,
     setAgelimit: setAgelimit,
   }

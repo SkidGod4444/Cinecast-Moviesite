@@ -11,8 +11,8 @@ function Filters(props) {
     setCategory,
     time,
     setTime,
-    rating,
-    setRating,
+    ratings,
+    setRatings,
     agelimit,
     setAgelimit,
   } = props?.data;
@@ -35,8 +35,8 @@ function Filters(props) {
       items: TimeData,
     },
     {
-      value: rating,
-      onChange: setRating,
+      value: ratings,
+      onChange: setRatings,
       items: RatingData,
     },
   ];
@@ -64,7 +64,7 @@ function Filters(props) {
                     key={index}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-submain text-subMain' : 'text-main'
+                        active ? 'bg-subMain text-white' : 'text-main'
                       }`
                     }
                     value={iterm}

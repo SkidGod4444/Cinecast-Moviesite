@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetFavoriteMoviesAction } from './Redux/Actions/UserActions';
 import { toast } from 'react-hot-toast';
 import EditMovie from './Screens/Dashboard/Admin/EditMovie';
-import DrawerContext from './Context/DrawerContext';
+// import DrawerContext from './Context/DrawerContext';
 
 
 function App() {
@@ -54,7 +54,6 @@ function App() {
     
     <ToastN />
 <ScrollOnTop>
-<DrawerContext>
 <Routes>
   {/* *********** PUBLIC ROUTERS *********** */}
   <Route path="/" element={<HomeScreen />} />
@@ -84,7 +83,6 @@ function App() {
   </Route>
   </Route>
 </Routes>
-</DrawerContext>
 </ScrollOnTop>
 
     </>

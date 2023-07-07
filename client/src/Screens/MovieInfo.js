@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../Layout/Layout'
 import { useParams } from 'react-router-dom'
 import MovieINFO from '../Components/MovieInfo/MovieINFO'
@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetMovieByIdAction } from '../Redux/Actions/MoviesActions'
 import Loader from '../Components/Notifications/LoaderN';
 import {Empty} from '../Components/Notifications/EmptyN';
-import { SidebarContext } from '../Context/DrawerContext'
-import { DownloadVideo } from '../Context/Functionalities'
-import FileSaver from 'file-saver'
+// import { SidebarContext } from '../Context/DrawerContext'
+// import { DownloadVideo } from '../Context/Functionalities'
+// import FileSaver from 'file-saver'
 
 
 function MovieInfo() {
   const [modelOpen, setModelOpen] = React.useState(false);
-  const { progress, setprogress } = useContext(SidebarContext);
+  // const { progress, setprogress } = useContext(SidebarContext);
   const {id} = useParams();
   const dispatch = useDispatch();
   const sameClass = 'w-full gap-6 flex justify-center items-center flex-colo min-h-screen'
@@ -26,14 +26,14 @@ function MovieInfo() {
   const {movies} = useSelector((state) => state.GetAllMovies);
   const RelatedMovies = movies?.filter((m) => m.category === movie?.category );
 
-  // download movie functionality
-  const DownloadMovieVideo = async (videoURL, name) => {
-    await DownloadVideo(videoURL,setprogress)
-    .then((data) => {
-      setprogress(0)
-      FileSaver.saveAs(data, name);
-    })
-  }
+  // // download movie functionality
+  // const DownloadMovieVideo = async (videoURL, name) => {
+  //   await DownloadVideo(videoURL,setprogress)
+  //   .then((data) => {
+  //     setprogress(0)
+  //     FileSaver.saveAs(data, name);
+  //   })
+  // }
   // use Effect
   useEffect(() => {
   // movie by id 
@@ -53,7 +53,7 @@ function MovieInfo() {
         : (
           <>
           <ShareModals modelOpen={modelOpen} setModelOpen={setModelOpen} movie={movie} />
-      <MovieINFO movie={movie} setModelOpen={setModelOpen} DownloadVideo={DownloadMovieVideo} progress={progress}/>
+      <MovieINFO movie={movie} setModelOpen={setModelOpen}/>
       {/* related movies */}
       <div className='my-16'>
         <Titles title='Related Movies' Icon={MdOutlineCollectionsBookmark}/>
@@ -69,6 +69,6 @@ function MovieInfo() {
       
       </Layout>
   )
-}
+    }
 
 export default MovieInfo

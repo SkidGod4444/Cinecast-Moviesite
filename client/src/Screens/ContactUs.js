@@ -36,7 +36,7 @@ function ContactUs() {
           <Head title="Contact Us" />
           <div className='grid mg:grid-cols-2 gap-6 lg:my-20 my-10 lg:grid-cols-3 xl:gap-8'>
             {ContactData.map((item) => (
-              <div key={item.id} className='p-8 bg-dry rounded-lg border border-subMain'>
+              <div key={item.id} className='p-8 bg-transparent rounded-lg border border-border'>
                 <span className='text-3xl block font-extrabold text-subMain'>
                   {React.createElement(item.icon)}
                 </span>
