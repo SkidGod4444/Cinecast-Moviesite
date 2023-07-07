@@ -8,6 +8,7 @@ import MostWatched from '../Components/Home/MostWatched'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllMoviesAction, GetRandomMoviesAction, GetTopRatedMoviesAction } from '../Redux/Actions/MoviesActions'
 import { toast } from 'react-hot-toast'
+import HomeView from '../Components/Home/HomeView'
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -36,6 +37,7 @@ function HomeScreen() {
     <Layout>
       <div className='container mx-auto min-h-screen px-2 mb-6'>
         <Banner movies={movies} isLoading={isLoading}/>
+        <HomeView />
         <PopularMovies movies={randomMovies} isLoading={randomLoading}/>
         <MostWatched movies={topMovies} isLoading={topLoading}/>
         <Promos />

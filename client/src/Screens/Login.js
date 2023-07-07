@@ -29,19 +29,15 @@ function Login() {
   const onSubmit = (data) => {
     // console.log(data);
     dispatch(LoginAction(data));
+  
   };
 
 // useEffect
   useEffect(() => {
-  if (userInfo?.isAdmin) {
-    navigate('/dashboard');
-  }
-  else if (userInfo) {
-    navigate('/profile');
-  }
+  
 
   if (isSuccess) {
-    console.log(userInfo);
+    navigate('/');
     toast.success('Nice to see you again!');
     toast.error('Please refresh to continue!');
   }
@@ -56,7 +52,7 @@ function Login() {
       <div className='container mx-auto px-4 md:px-6 lg:px-8 flex justify-center items-center'>
         <form onSubmit={
           handleSubmit(onSubmit)
-        } className='w-full 2xl:w-2/5 p-8 sm:p-14 md:w-3/5  bg-dry border border-subMain rounded-lg '>
+        } className='w-full 2xl:w-2/5 p-8 sm:p-14 md:w-3/5  bg-transparent border-2 border-border rounded-lg '>
             <img src='/images/logo.png' alt='logo' className='w-full h-12 object-contain' />
             <div className='w-full'>
             <Input 
@@ -87,7 +83,7 @@ function Login() {
             <button 
             type='submit' 
             disabled={isLoading}
-            className='mt-10 bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-3 rounded-lg w-full'>
+            className='mt-10 bg-subMain transitions flex-rows gap-4 text-white p-3 rounded-lg w-full'>
               {
                   isLoading ? (
                     'Loading...'

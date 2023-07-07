@@ -42,11 +42,11 @@ function Filters(props) {
   ];
 
   return (
-    <div className="m-6 bg-dry border text-dryGray border-gray-800 grid gap-2 rounded p-6 sm:grid-cols-2 md:grid-cols-4 lg:gap-12">
+    <div className="m-6 bg-transparent border border-border text-dryGray grid gap-2 rounded p-6 sm:grid-cols-2 md:grid-cols-4 lg:gap-12">
       {Filter.map((item, index) => (
         <Listbox key={index} value={item.value} onChange={item.onChange}>
           <div className="relative mt-1">
-          <Listbox.Button className="relative border border-subMain w-60 text-white bg-main rounded-lg shadow-md cursor-default py-4 pl-6 pr-10 text-center text-xs">
+          <Listbox.Button className="relative border border-border hover:border-subMain w-60 text-white bg-main rounded-lg shadow-md cursor-default py-4 pl-6 pr-10 text-center text-xs">
               <span className="block truncate">{item.value.title}</span>
               <span className="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-2">
                 <SelectorIcon className="w-5 h-5" aria-hidden="true" />

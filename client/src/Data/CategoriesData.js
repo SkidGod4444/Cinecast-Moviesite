@@ -77,6 +77,38 @@ export const CategoriesData = [
     },
     {
         _id: 20,
+        title: "Hotstar"
+    },
+    {
+        _id: 21,
         title: "Reality",
+    },
+    {
+        _id: 22,
+        title: "Sony Liv",
+    },
+    {
+        _id: 23,
+        title: "Zee5",
+    },
+    {
+        _id: 24,
+        title: "Amazon Prime",
+    },
+    {
+        _id: 25,
+        title: "Hollywood",
+    },
+    {
+        _id: 26,
+        title: "Bollywood",
+    },
+    {
+        _id: 27,
+        title: "Tollywood",
+    },
+    {
+        _id: 28,
+        title: "Latest",
     },
 ];

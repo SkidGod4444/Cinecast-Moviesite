@@ -7,7 +7,13 @@ import { Link } from 'react-router-dom';
 import { Empty } from '../Notifications/EmptyN';
 import Loader from '../Notifications/LoaderN';
 
+
 const SwiperTop = ({ prevEl, nextEl, movies }) => {
+  // const popular = movies?.filter((movie) => movie?.ratings >= 2);
+
+  // // Sort the popular movies in descending order based on ratings
+  // const sortedPopular = popular?.sort((a, b) => b.ratings - a.ratings);
+
   return (
     <Swiper
       navigation={{ nextEl, prevEl }}
@@ -34,6 +40,7 @@ const SwiperTop = ({ prevEl, nextEl, movies }) => {
         },
       }}
     >
+      
       {movies?.map((movie, index) => (
         <SwiperSlide key={index}>
           <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
@@ -55,7 +62,7 @@ const SwiperTop = ({ prevEl, nextEl, movies }) => {
 function TopRated({ movies, isLoading }) {
   const [nextEl, setNextEl] = useState(null);
   const [prevEl, setPrevEl] = useState(null);
-  const classNames = 'bg-subMain hover:bg-transparent border-2 border-subMain transitions text-white px-4 py-3 rounded text-sm ';
+  const classNames = 'bg-main hover:bg-subMain border-2 border-subMain transitions text-white px-4 py-3 rounded text-sm ';
   return (
     <div className="my-16">
       <Titles title="Top Rated" Icon={BsFillBookmarkHeartFill} />

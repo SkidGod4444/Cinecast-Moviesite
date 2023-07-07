@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { MdScreenSearchDesktop } from 'react-icons/md';
+import { BiSearchAlt } from 'react-icons/bi';
 import { RiUser4Fill } from 'react-icons/ri';
 import { BsBox2HeartFill } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
@@ -11,9 +11,45 @@ function Navbar() {
   const { userInfo } = useSelector((state) => state.UserLogin);
   const { favourite } = useSelector((state) => state.UserGetFavoriteMovies);
 
+  const [placeholder, setPlaceholder] = useState('Welcome to Cinecast...👻💕');
   const hover = "hover:text-subMain transition-colors text-white";
   const hoverActive = "text-subMain";
   const Hover = ({ isActive }) => (isActive ? hoverActive : hover);
+
+   // Array of placeholder texts
+  const placeholderTexts = [
+  'Search movies here...',
+  'Looking for a movie? Search here...', 
+  'You can search by movie name...', 
+  'You can search by movie genre...',
+  'Login to add movies to your favourite list...',
+  'Not a member? Register now...',
+  'You can search by movie year...',
+  'You can search by movie rating...',
+  'Click on the movie to see more details...',
+  'Quickly search for movies here...',
+  'Do you want to see the latest movies? Search here...',
+  'Download movies for free...',
+  'Watch movies online for free...',
+
+];
+  
+  useEffect(() => {
+    
+    // Function to update the placeholder text
+    const updatePlaceholder = () => {
+      const randomIndex = Math.floor(Math.random() * placeholderTexts.length);
+      setPlaceholder(placeholderTexts[randomIndex]);
+    };
+
+    // Update the placeholder text every 3 seconds
+    const interval = setInterval(updatePlaceholder, 6000);
+
+    return () => {
+      // Clear the interval when the component is unmounted
+      clearInterval(interval);
+    };
+  }, [placeholderTexts]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -34,15 +70,15 @@ function Navbar() {
         </div>
         {/* SEARCH FORM */}
         <div className="col-span-3">
-          <form onSubmit={handleSearch} className="w-80 text-sm bg-dryGray rounded flex-btn gap-4">
+          <form onSubmit={handleSearch} className="w-90 text-sm bg-dryGray rounded flex-btn gap-4">
             <button type="submit" className="bg-subMain w-12 flex-colo h-12 rounded text-white">
-              <MdScreenSearchDesktop style={{ fontSize: '25px', marginLeft: '8px' }} />
+              <BiSearchAlt style={{ fontSize: '25px', marginLeft: '10px' }} />
             </button>
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Movies Name..."
+              placeholder={placeholder}
               className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"
             />
           </form>
@@ -67,7 +103,7 @@ function Navbar() {
               <img
                 src={userInfo?.image ? userInfo?.image : "/images/userdp.jpg"}
                 alt={userInfo?.username}
-                className="w-8 h-8 rounded-full border object-cover border-subMain"
+                className="w-8 h-8 rounded-full border object-cover border-border"
               />
             ) : (
               <RiUser4Fill className="w-6 h-8" />

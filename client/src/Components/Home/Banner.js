@@ -10,23 +10,24 @@ import { Empty } from '../../Components/Notifications/EmptyN'
 import { useDispatch, useSelector } from 'react-redux'
 import { FavoriteMovie, IsFavorite } from '../../Context/Functionalities'
 
+  // check if movie is in favorites
+const IsInFavorite = (movie) => {
+    return IsFavorite(movie)
+}
 const Swipper = ({sameClass,movies}) => {
     const {isLoading} = useSelector(state => state.UserAddFavoriteMovies)
     const dispatch = useDispatch()
     const {userInfo} = useSelector(state => state.UserLogin)
 
-    // check if movie is in favorites
-    const IsInFavorite = (movie) => {
-        return IsFavorite(movie)
-    }
+
 
 
     return(
         <Swiper 
-            direction='vertical'
+            direction='horizontal'
             slidesPerView={1}
             loop={true}
-            speed={1000}
+            speed={1500}
             modules={[Autoplay]}
             autoplay={{
                 delay: 4000,
@@ -34,8 +35,8 @@ const Swipper = ({sameClass,movies}) => {
             }}
             className={sameClass}
         >
-            {movies?.slice(0, 5).map((movies, index) => (
-                    <SwiperSlide key={index} className="relative rounded overflow-hidden">
+            {movies?.slice(0, movies?.length).map((movies, index) => (
+                    <SwiperSlide key={index} className="relative rounded border-2 border-border overflow-hidden">
                         <img src={movies?.poster ? movies.poster : '/images/userdp.jpg'} alt={movies?.name} className="w-full h-full object-cover" />
                         <div className="absolute linear-bg xl:pl-50 xl:pt-75 sm:pl-32 pl-8 top-0 bottom-0 right-0 left-0 flex flex-col justify-center lg:gap-8 md:gap-5 gap-4">
                         <h1 className="xl-text-4xl truncate capitalize font-sans sm:text-2xl text-xl font-bold">{movies?.name}</h1>

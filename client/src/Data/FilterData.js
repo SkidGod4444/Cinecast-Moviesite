@@ -1,24 +1,31 @@
 export const AgelimitData = [
-    { title: 'Sort By Age' },
-    { title: '10+' },
-    { title: '16+' },
-    { title: '18+' },
+    { title: 'Sort By Type' },
+    { title: 'Random' },
+    { title: 'Kids Content' },
+    { title: 'Teenagers Content' },
+    { title: 'Adult Content' },
 ];
 
 
 export const TimeData = [
     { title: 'Sort By Time' },
-    { title: '1 - 2 Hours' },
-    { title: '2 - 3 Hours' },
-    { title: '3 - 4 Hours' },
-    { title: '4 - 5 Hours' },
-    { title: '5 - 6 Hours' },
-    { title: '6 - 10 Hours' },
-    { title: '10 - 20 Hours' },
+    { title: 'Random'},
+    { title: '1 Hours' },
+    { title: '2 Hours' },
+    { title: '3 Hours' },
+    { title: '4 Hours' },
+    { title: '5 Hours' },
+    { title: '6 Hours' },
+    { title: '7 Hours' },
+    { title: '8 Hours' },
+    { title: '9 Hours' },
+    { title: '10 Hours' },
+    
     ];
 
 export const RatingData = [
     { title: 'Sort By Rating' },
+    { title: 'Random'},
     { title: '1 Stars' },
     { title: '2 Stars' },
     { title: '3 Stars' },

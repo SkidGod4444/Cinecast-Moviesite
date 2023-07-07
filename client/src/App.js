@@ -51,9 +51,10 @@ function App() {
 
   return (
     <>
-    <DrawerContext>
+    
     <ToastN />
 <ScrollOnTop>
+<DrawerContext>
 <Routes>
   {/* *********** PUBLIC ROUTERS *********** */}
   <Route path="/" element={<HomeScreen />} />
@@ -80,12 +81,12 @@ function App() {
   <Route path="/users" element={<Users />} />
   <Route path="/addmovie" element={<AddMovie />} />
   <Route path="/movie/edit/:id" element={<EditMovie />} />
-  
   </Route>
   </Route>
 </Routes>
-</ScrollOnTop>
 </DrawerContext>
+</ScrollOnTop>
+
     </>
 
   );

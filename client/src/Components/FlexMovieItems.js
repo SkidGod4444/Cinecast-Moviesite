@@ -22,11 +22,7 @@ function FlexMovieItems({movies}) {
         <BiTimeFive className="text-subMain w-5 h-5" />
         <span className="text-sm font-medium">{movies?.time} Hrs</span>
         </div>
-{/* 
-        <div className="flex items-center gap-1">
-        <MdOutlineLanguage className="text-subMain w-5 h-5" />
-        <span className="text-sm font-medium">{movies.language}</span>
-        </div> */}
+
         </>
   )
 }
