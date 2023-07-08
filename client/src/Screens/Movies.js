@@ -11,6 +11,7 @@ import { TbPlayerTrackNext, TbPlayerTrackPrev } from 'react-icons/tb';
 import { AgelimitData, RatingData, TimeData } from '../Data/FilterData';
 import { useParams } from 'react-router-dom';
 
+
 function MoviesPage() {
   const {search} = useParams();
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ function MoviesPage() {
       <div className="min-h-screen container mx-auto px-2 my-6">
         <Filters data={datas}/>
         <p className="text-lg font-medium my-6">
-          Total{''} <span className="font-bold text-subMain">{movies ? movies?.length : 0}</span>{''} items Found
+        Found{''} <span className="font-bold text-subMain">{movies ? movies?.length : 0}</span>{''} items
         </p>
         {
           isLoading ? (

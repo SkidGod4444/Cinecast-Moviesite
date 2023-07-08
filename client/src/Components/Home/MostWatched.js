@@ -13,7 +13,7 @@ function MostWatched({ movies, isLoading }) {
         isLoading ? <Loader /> :
         movies?.length > 0 ? (
           <div className="grid sm:mt-12 mt-6 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-        {movies.slice(0, movies?.length > 30 ? 20 : 10).map((movie, index) => (
+        {movies.slice(0, movies?.length > 30 ? 24 : 12).map((movie, index) => (
             <Movie key={index} movie={movie} />
         ))}
       </div>

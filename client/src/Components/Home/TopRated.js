@@ -43,7 +43,7 @@ const SwiperTop = ({ prevEl, nextEl, movies }) => {
       
       {movies?.map((movie, index) => (
         <SwiperSlide key={index}>
-          <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
+          <div className="p-4 h-rate hovered border hover:scale-110 transitions border-border bg-transparent rounded-lg overflow-hidden">
           <Link to={`/movies/${movie?._id}`}>
             <img
               src={movie?.titleimg ? movie.titleimg : '/images/userdp.jpg'}
