@@ -14,42 +14,39 @@ function Navbar() {
   const [placeholder, setPlaceholder] = useState('Welcome to Cinecast...👻💕');
   const hover = "hover:text-subMain transition-colors text-white";
   const hoverActive = "text-subMain";
-  const Hover = ({ isActive }) => (isActive ? hoverActive : hover);
+  // const Hover = ({ isActive }) => (isActive ? hoverActive : hover);
 
-   // Array of placeholder texts
-  const placeholderTexts = [
-  'Search movies here...',
-  'Looking for a movie? Search here...', 
-  'You can search by movie name...', 
-  'You can search by movie genre...',
-  'Login to add movies to your favourite list...',
-  'Not a member? Register now...',
-  'You can search by movie year...',
-  'You can search by movie rating...',
-  'Click on the movie to see more details...',
-  'Quickly search for movies here...',
-  'Do you want to see the latest movies? Search here...',
-  'Download movies for free...',
-  'Watch movies online for free...',
-
-];
-  
   useEffect(() => {
-    
+    const placeholderTexts = [
+      'Search movies here...',
+      'Looking for a movie? Search here...',
+      'You can search by movie name...',
+      'You can search by movie genre...',
+      'Login to add movies to your favourite list...',
+      'Not a member? Register now...',
+      'You can search by movie year...',
+      'You can search by movie rating...',
+      'Click on the movie to see more details...',
+      'Quickly search for movies here...',
+      'Do you want to see the latest movies? Search here...',
+      'Download movies for free...',
+      'Watch movies online for free...',
+    ];
+
     // Function to update the placeholder text
     const updatePlaceholder = () => {
       const randomIndex = Math.floor(Math.random() * placeholderTexts.length);
       setPlaceholder(placeholderTexts[randomIndex]);
     };
 
-    // Update the placeholder text every 3 seconds
+    // Update the placeholder text every 6 seconds
     const interval = setInterval(updatePlaceholder, 6000);
 
     return () => {
       // Clear the interval when the component is unmounted
       clearInterval(interval);
     };
-  }, [placeholderTexts]);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -59,6 +56,7 @@ function Navbar() {
       navigate(`/movies`);
     }
   };
+
   return (
     <div className="bg-main shadow-md sticky top-0 z-20">
       <div className="container mx-auto py-6 px-2 lg:grid gap-10 lg:grid-cols-7 justify-between items-center">
@@ -85,19 +83,19 @@ function Navbar() {
         </div>
         {/* MENUS */}
         <div className="col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center">
-          <NavLink to="/movies" className={Hover} activeclassname={hoverActive}>
+          <NavLink to="/movies" className={hover} activeClassName={hoverActive}>
             Movies
           </NavLink>
-          <NavLink to="/about-cinecast" className={Hover} activeclassname={hoverActive}>
+          <NavLink to="/about-cinecast" className={hover} activeClassName={hoverActive}>
             Cinecast
           </NavLink>
-          <NavLink to="/contact-cinecast" className={Hover} activeclassname={hoverActive}>
+          <NavLink to="/contact-cinecast" className={hover} activeClassName={hoverActive}>
             Contact
           </NavLink>
           <NavLink
             to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
-            className={Hover}
-            activeclassname={hoverActive}
+            className={hover}
+            activeClassName={hoverActive}
           >
             {userInfo ? (
               <img
@@ -109,7 +107,7 @@ function Navbar() {
               <RiUser4Fill className="w-6 h-8" />
             )}
           </NavLink>
-          <NavLink to="/favourites" className={`${Hover} relative flex items-center justify-center`} activeclassname={hoverActive}>
+          <NavLink to="/favourites" className={`${hover} relative flex items-center justify-center`} activeClassName={hoverActive}>
             <BsBox2HeartFill className="w-5 h-8" />
             <div className="w-5 h-5 rounded-full bg-subMain text-white text-center absolute -top-5 -right-1 flex items-center justify-center">
               <span className="text-xs">{favourite?.length}</span>
